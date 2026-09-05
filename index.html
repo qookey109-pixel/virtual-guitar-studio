@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#09090b" />
+  <title>Virtual Guitar Studio v10</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">HAND TRACKED INSTRUMENT</p>
+        <h1>VIRTUAL GUITAR STUDIO</h1>
+      </div>
+      <div class="status-wrap"><span id="cameraDot" class="dot"></span><span id="statusText">尚未開啟鏡頭</span></div>
+    </header>
+
+    <section class="instrument-switcher" aria-label="樂器切換">
+      <button class="instrument-btn" data-instrument="bass" type="button">𝄢 <span>貝斯</span><small>4 STRINGS</small></button>
+      <button class="instrument-btn active" data-instrument="electric" type="button">ϟ <span>電吉他</span><small>ELECTRIC</small></button>
+      <button class="instrument-btn" data-instrument="acoustic" type="button">◉ <span>民謠吉他</span><small>ACOUSTIC</small></button>
+      <button class="instrument-btn" data-instrument="classical" type="button">♬ <span>古典吉他</span><small>NYLON</small></button>
+    </section>
+
+    <section class="help-row">
+      🎸 左手在左側指板按和弦會優先辨識；辨識不到時使用實體鍵盤備援。右手在右側琴身單弦、分解或上下刷弦。
+    </section>
+
+    <section class="performance-layout">
+      <section class="stage-card">
+        <div id="stage" class="stage">
+          <video id="camera" playsinline muted></video>
+          <canvas id="canvas"></canvas>
+
+          <div class="instrument-badge">
+            <strong id="instrumentName">電吉他</strong>
+            <span id="instrumentDetail">6 弦 · HIGH GAIN</span>
+          </div>
+
+          <div class="chord-badge">
+            <span>CHORD</span>
+            <strong id="chordName">OPEN</strong>
+          </div>
+
+          <div id="permissionOverlay" class="permission-overlay">
+            <div class="permission-panel">
+              <div class="guitar-mark">ϟ</div>
+              <h2>直接開始演奏</h2>
+              <p>左手按指板和弦優先，鍵盤和弦備援；右手直接撥弦或刷弦。</p>
+              <div class="permission-actions">
+                <button id="testSoundBtnTop" class="control-btn" type="button">🔊 測試聲音</button>
+                <button id="startCameraBtn" class="primary-btn" type="button">開啟鏡頭與樂器</button>
+              </div>
+              <p class="privacy-note">鏡頭影像只在你的瀏覽器內處理，本版本沒有建立雲端影像儲存。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button id="testSoundBtn" class="control-btn" type="button">🔊 測試</button>
+          <button id="fullscreenBtn" class="control-btn" type="button">⛶ 全螢幕</button>
+          <label><span>弦距</span><input id="spacing" type="range" min="85" max="150" value="115"></label>
+          <label><span>音量</span><input id="volume" type="range" min="0" max="100" value="78"></label>
+        </div>
+
+        <div class="info-row">
+          <span id="tuningText">⚡ 電吉他6弦：E2 · A2 · D3 · G3 · B3 · E4</span>
+          <span id="audioState">🔇 尚未啟用音訊</span>
+          <span id="gestureState">左手：等待辨識</span>
+        </div>
+      </section>
+
+      <aside class="keyboard-card">
+        <div id="keyboardChordDisplay" class="keyboard-display">
+          <span>SPACE</span><strong>OPEN</strong><small>目前和弦</small>
+        </div>
+
+        <div class="keyboard-grid">
+          <button class="chord-key" data-key="a"><kbd>A</kbd><span>Am7</span></button>
+          <button class="chord-key" data-key="s"><kbd>S</kbd><span>Cmaj7</span></button>
+          <button class="chord-key" data-key="d"><kbd>D</kbd><span>Dm7</span></button>
+          <button class="chord-key" data-key="f"><kbd>F</kbd><span>Fmaj7</span></button>
+          <button class="chord-key" data-key="g"><kbd>G</kbd><span>G7</span></button>
+          <button class="chord-key" data-key="h"><kbd>H</kbd><span>Em7</span></button>
+          <button class="chord-key" data-key="j"><kbd>J</kbd><span>A7</span></button>
+          <button class="chord-key" data-key="k"><kbd>K</kbd><span>D7</span></button>
+          <button class="chord-key" data-key="l"><kbd>L</kbd><span>E7</span></button>
+          <button class="chord-key open active" data-open><kbd>SPACE</kbd><span>OPEN</span></button>
+        </div>
+
+        <details class="editor">
+          <summary>⚙️ 自訂鍵位</summary>
+          <p>設定會保存在這台瀏覽器。</p>
+          <div id="editorGrid" class="editor-grid"></div>
+          <button id="resetMap" class="control-btn" type="button">恢復預設</button>
+        </details>
+      </aside>
+    </section>
+  </main>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
